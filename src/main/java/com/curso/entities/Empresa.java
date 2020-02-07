@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -41,6 +46,18 @@ public class Empresa implements Serializable {
 	
 	@Getter @Setter private Date dataAtualizacao;
 	
+	@OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Getter @Setter private List<Funcionario> funcionarios;
 	
+	@PreUpdate
+	public void preUpdate() {
+		dataAtualizacao = new Date();
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		final Date atual = new Date();
+		dataCriacao = atual;
+		dataAtualizacao = atual;
+	}
 }
