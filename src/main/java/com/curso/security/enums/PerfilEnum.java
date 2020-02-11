@@ -1,4 +1,4 @@
-package com.curso.types;
+package com.curso.security.enums;
 
 public enum PerfilEnum {
 

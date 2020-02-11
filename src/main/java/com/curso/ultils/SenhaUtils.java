@@ -1,4 +1,4 @@
-package com.curso.entities;
+package com.curso.ultils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
